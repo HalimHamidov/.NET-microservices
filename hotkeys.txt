@@ -1,0 +1,8 @@
+place open brace
+format on save
+
+Ctrl+J
+dotnet add package mongodb.driver
+
+
+
