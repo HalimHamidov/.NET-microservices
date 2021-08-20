@@ -17,10 +17,12 @@ namespace Play.Catalog.Service.Repositories
             var database = mongoClient.GetDatabase("Catalog");
             dbCollection = database.GetCollection<Item>(collectionName);
         }
+
         public async Task<IReadOnlyCollection<Item>> GetAllAsync()
         {
             return await dbCollection.Find(filterBuilder.Empty).ToListAsync();
         }
+
         public async Task<Item> GetAsync(Guid id)
         {
             FilterDefinition<Item> filter = filterBuilder.Eq(entity => entity.Id, id);
@@ -45,11 +47,13 @@ namespace Play.Catalog.Service.Repositories
             FilterDefinition<Item> filter = filterBuilder.Eq(existingidentity => existingidentity.Id, entity.Id);
             await dbCollection.ReplaceOneAsync(filter, entity);
         }
-        public async Task DeleteAsync(Guid id)
+
+        public async Task RemoveAsync(Guid id)
         {
             FilterDefinition<Item> filter = filterBuilder.Eq(entity => entity.Id, id);
             await dbCollection.DeleteOneAsync(filter);
         }
+
 
     }
 
